@@ -97,6 +97,8 @@ export default class Formatter {
         formattedQuery = this.formatWithoutSpaces(token, formattedQuery);
       } else if (token.value === ';') {
         formattedQuery = this.formatQuerySeparator(token, formattedQuery);
+      } else if (token.type === tokenTypes.WORD) {
+        formattedQuery = this.formatWithQuote(token, formattedQuery);
       } else {
         formattedQuery = this.formatWithSpaces(token, formattedQuery);
       }
@@ -209,6 +211,10 @@ export default class Formatter {
 
   formatWithSpaces(token, query) {
     return query + this.show(token) + ' ';
+  }
+
+  formatWithQuote(token, query) {
+    return query + '"' + this.show(token) + '"' + ' ';
   }
 
   formatQuerySeparator(token, query) {
